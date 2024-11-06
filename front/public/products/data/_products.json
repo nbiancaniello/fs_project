@@ -1,0 +1,103 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "description": "Coca Cola Clásica 2L No retornable",
+      "price": 2400,
+      "image": "two-liter-bottle-of-coca-cola.jpg",
+      "isPromotion": true,
+      "promotionPrice": 2200,
+      "isNewArrival": false,
+      "category": "bebidas",
+      "inStock": true
+    },
+    {
+      "id": 2,
+      "description": "Aceite de Girasol 1.5L Natura",
+      "price": 2300,
+      "image": "aceite-natura-litre-half.webp",
+      "isPromotion": true,
+      "promotionPrice": 2100,
+      "isNewArrival": false,
+      "category": "aceites",
+      "inStock": true
+    },
+    {
+      "id": 3,
+      "description": "Cerveza 730cc Rubia Patagonia",
+      "price": 2300,
+      "image": "cerveza-patagonia-730cc.webp",
+      "isPromotion": true,
+      "promotionPrice": 2000,
+      "isNewArrival": false,
+      "category": "bebidas",
+      "inStock": true
+    },
+    {
+      "id": 4,
+      "description": "Rollo de Cocina x3 Sussex",
+      "price": 2300,
+      "image": "rollo-cocina-sussex-x3.webp",
+      "isPromotion": true,
+      "promotionPrice": 1900,
+      "isNewArrival": false,
+      "category": "limpieza",
+      "inStock": true
+    },
+    {
+      "id": 5,
+      "description": "Café Dolca Original 170gr Nescafé",
+      "price": 4500,
+      "image": "DOLCA_170G_.webp",
+      "isPromotion": true,
+      "promotionPrice": 4300,
+      "isNewArrival": false,
+      "category": "infusiones",
+      "inStock": true
+    },
+    {
+      "id": 6,
+      "description": "Atún al Natural La Campagnola",
+      "price": 3500,
+      "image": "Atun-natural-la-campagnola.webp",
+      "isPromotion": true,
+      "promotionPrice": 3400,
+      "isNewArrival": false,
+      "category": "pescados,enlatados",
+      "inStock": true
+    },
+    {
+      "id": 7,
+      "description": "Ojo de bife x 1kg",
+      "price": 6000,
+      "image": "ribeye-640-360.jpg",
+      "isPromotion": false,
+      "promotionPrice": 0,
+      "isNewArrival": true,
+      "category": "carniceria",
+      "inStock": true
+    },
+    {
+      "id": 8,
+      "description": "Falda por 1kg",
+      "price": 9000,
+      "image": "brisket-760-360.jpg",
+      "isPromotion": false,
+      "promotionPrice": 0,
+      "isNewArrival": true,
+      "category": "carniceria",
+      "inStock": true
+    },
+    {
+      "id": 9,
+      "description": "Panceta x 250gr",
+      "price": 1800,
+      "image": "bacon-640-400.jpg",
+      "isPromotion": false,
+      "promotionPrice": 0,
+      "isNewArrival": true,
+      "category": "carniceria",
+      "inStock": true
+    }
+  ]
+}

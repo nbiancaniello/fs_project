@@ -1,0 +1,36 @@
+.order-row{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: left;
+   margin: 1rem;
+   border: 2px solid rgba(8, 71, 17, 0.295);
+}
+
+.order-item-row{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   border-top: 2px solid rgba(8, 71, 17, 0.295);
+   border-bottom: 2px solid rgba(8, 71, 17, 0.295);
+
+}
+
+.order-row-label{
+   font-weight: 700;
+   color: #27542ade;
+   padding: 0.4rem;
+}
+
+.order-item-row p{
+   font-weight: 500;
+   color: #0d0f0dde;
+   padding: 0.4rem;
+}
+
+.order-item-row img{
+   width: 5rem;
+   margin: 1rem;
+}

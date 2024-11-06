@@ -1,0 +1,19 @@
+.frontPage-container{
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+@media (max-width: 767px) {
+   
+}
+
+@media (min-width:767px) and (max-width: 1400px) {
+   
+}
+
+@media (min-width: 1400px) and (max-width: 1600px) {
+
+}

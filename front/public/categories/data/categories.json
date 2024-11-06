@@ -1,0 +1,34 @@
+[
+    {
+      "description": "Carnes",
+	  "isActive": true
+    },
+	{
+      "description": "Infusiones",
+	  "isActive": true
+    },
+	{
+      "description": "Bebidas s/alcohol",
+	  "isActive": true
+    },
+	{
+      "description": "Bebidas c/alcohol",
+	  "isActive": true
+    },
+	{
+      "description": "Aceites",
+	  "isActive": true
+    },
+	{
+      "description": "Limpieza",
+	  "isActive": true
+    },
+	{
+      "description": "Pescados",
+	  "isActive": true
+    },
+	{
+      "description": "Enlatados",
+	  "isActive": true
+    }
+]

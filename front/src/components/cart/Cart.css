@@ -1,0 +1,26 @@
+.cart-button{
+   margin: 0.2rem;
+   padding: 0.5rem;
+}
+
+.product-card-form-buttons{
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+
+#cart-qty{
+   margin: 0.5rem 0rem 0.5rem 0rem;
+   font-size: 1.3rem;
+}
+
+@media (max-width: 766px) {
+}
+
+@media (min-width:767px) and (max-width: 1399px) {
+
+}
+
+@media (min-width: 1400px) and (max-width: 1600px) {
+
+}

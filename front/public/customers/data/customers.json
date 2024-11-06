@@ -1,0 +1,9 @@
+{
+   "id": 1,
+   "firstName": "Lalo",
+   "lastName": "Landa",
+   "email": "lalolanda@customer.com",
+   "phone": "+54 9 11 5555-5555",
+   "address": "Avenida Siempreviva 742",
+   "defaultPayment": "CreditCard"
+}
