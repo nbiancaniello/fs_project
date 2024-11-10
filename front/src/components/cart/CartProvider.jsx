@@ -75,8 +75,10 @@ export const CartProvider = ({ children }) => {
    const emptyCart = () => {
       setItems([]);
       localStorage.removeItem("items");
+      updateCart();
    };
 
+   // This will save the items to the database when the cart is updated
    const updateCart = async () => {
       try {
          const items = JSON.parse(localStorage.getItem('items')) || [];

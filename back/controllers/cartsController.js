@@ -1,10 +1,10 @@
 const Cart = require("../models/cartModel");
 
 // Route to get
-const getCartByID = async (req,res) => {
+const getCartByUserID = async (req,res) => {
    try {
-      let cartId = req.params.id.replace(/^:/, '');
-      const cart = await Cart.findById(cartId);
+      let userID = req.params.id.replace(/^:/, '');
+      let cart = await Cart.findOne({ userID: userID })
       if (!cart) {
          return res.status(404).send("No Cart found for this User");
       }
@@ -18,26 +18,27 @@ const getCartByID = async (req,res) => {
 
 const updateCart = async (req, res) => {
    try {
-      let userId = req.params.id.replace(/^:/, '');
-      var cart = await Cart.findById(userId);
-      const { itemsArray } = req.body;
+      let userID = req.params.id.replace(/^:/, '');
+      let cart = await Cart.findOne({ userID: userID })
+      const itemsArray = req.body;
       if (!cart) {
          cart = new Cart({
-            userId: userId,  // Ensure userId is set
+            userID: userID,  // Ensure userId is set
             items: itemsArray || []  // Set items or an empty array if not provided
          });
          const newCart = await cart.save();
          res.json(newCart);
       } else {
-         if (itemsArray !== undefined)  {
+         if (itemsArray.length > 0)  {
             cart.items = itemsArray;
+            const updatedCart = await cart.save();
+            res.json(updatedCart);
          }
-         // else {
-         //    //await Cart.findByIdAndDelete(userId);
-         // }
+         else {
+            let deletedCart = await Cart.findOneAndDelete({ userID: userID });
+            res.json(deletedCart);
+         }
 
-         const updatedCart = await Cart.save();
-         res.json(updatedCart);
       }
    } catch (error) {
       console.error("Error while updating Cart:", error);
@@ -45,18 +46,7 @@ const updateCart = async (req, res) => {
    }
 };
 
-const deleteCart = async (req, res) => {
-   try {
-      const deletedCart = await Cart.findByIdAndDelete(req.params.id);
-      res.json(deletedCart);
-   } catch (error) {
-      console.error("Error while deleting Cart:", error);
-      res.status(500).send("There was an error while deleting the Cart");
-   }
-};
-
 module.exports = {
-   getCartByID,
-   updateCart,
-   deleteCart
+   getCartByUserID,
+   updateCart
 };

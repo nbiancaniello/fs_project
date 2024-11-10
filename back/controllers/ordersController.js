@@ -1,10 +1,13 @@
 const Order = require("../models/orderModel");
 
 const createOrder = async (req, res) => {
-   const order = new Order({ 
+   const order = new Order({
+      orderID: req.body.orderID, 
       userID: req.body.userID, 
       totalAmount: req.body.totalAmount, 
-      items: req.body.items});
+      items: req.body.items,
+      deliveryOption: req.body.deliveryOption
+   });
 
    try {
       await order.save();
@@ -14,9 +17,9 @@ const createOrder = async (req, res) => {
    }
 };
 
-const getOrderByUsername = async (req,res) => {
-   const {username} = req.params;
-   const orders = await Order.find({username}).populate("items");
+const getOrderByUserID = async (req,res) => {
+   const {userID} = req.params;
+   const orders = await Order.find({userID}).populate("items");
 
    if (!orders) {
       return res.status(404).send("No orders found for this user");
@@ -26,5 +29,5 @@ const getOrderByUsername = async (req,res) => {
 
 module.exports = {
    createOrder,
-   getOrderByUsername
+   getOrderByUserID
 };

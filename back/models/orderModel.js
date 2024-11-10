@@ -3,6 +3,10 @@ const productSchema = require('./productModel').productSchema;
 const localDate = new Date();
 
 const orderSchema = new mongoose.Schema({
+  orderID: {
+    type: String,
+    required: true
+  },
   dateIssued: {
     type: Date,
     required: true,
@@ -19,6 +23,10 @@ const orderSchema = new mongoose.Schema({
   },
   items: {
     type: [productSchema],
+    required: true
+  },
+  deliveryOption: {
+    type: String,
     required: true
   }
 });

@@ -7,6 +7,7 @@ import axios from "axios";
 function ShoppingCartUserDetails() {
    const [user, setUser] = useState(null);
    const [error, setError] = useState(null);
+   const [orderID, setOrderID] = useState('');
    const [selectedOption, setSelectedOption] = useState('option-delivery');
    const { emptyCart } = useCart();
    const [validated, setValidated] = useState(false);
@@ -44,6 +45,17 @@ function ShoppingCartUserDetails() {
       setSelectedOption(event.target.id);
    };
 
+   // UseEffect to trigger after orderID is set
+   useEffect(() => {
+      if (orderID) {
+         // When orderID is set, call the functions that need it
+         createOrder();
+         sendEmail();
+         emptyCart();  // Empty the cart
+         navigate('/ShoppingCartConfirmation');
+      }
+   }, [orderID]);  // Depend on orderID to trigger this effect
+
    const handleFormSubmit = (event) => {
       const form = event.currentTarget;
       event.preventDefault();
@@ -51,20 +63,25 @@ function ShoppingCartUserDetails() {
       if (form.checkValidity() === false) {
          setValidated(true);
       } else {
-         createOrder();
-         emptyCart();
-         navigate('/ShoppingCartConfirmation');
+         const now = new Date();
+         const formattedDate = now.getFullYear().toString().slice(-2) + 
+               (now.getMonth() + 1).toString().padStart(2, '0') + 
+               now.getDate().toString().padStart(2, '0') + 
+               now.getHours().toString().padStart(2, '0') + 
+               now.getMinutes().toString().padStart(2, '0') + 
+               now.getSeconds().toString().padStart(2, '0');
+         setOrderID(user.firstName.charAt(0) + user.lastName.charAt(0) + formattedDate);
       }
    };
    
    const createOrder = async () => {
       try {
          await axios.post('http://localhost:5000/api/orders', {
+            orderID: orderID,
             userID: localStorage.getItem('userID'),
             totalAmount: calculateTotal(),
-            items: [
-               JSON.parse(localStorage.getItem('items')) || [],
-            ],
+            items: JSON.parse(localStorage.getItem('items')) || [],
+            deliveryOption: selectedOption
          });
       } catch (error) {
          console.error(error);
@@ -75,6 +92,24 @@ function ShoppingCartUserDetails() {
       const items = JSON.parse(localStorage.getItem('items')) || [];
       const total = items.reduce((acc, item) => acc + item.price * item.qty, 0);
       return total;
+   };
+
+   const sendEmail = async () => {
+      const BASE_URL = `http://localhost:5000/api/mail/sendEmail`;
+      try {
+         const response = await axios.post(BASE_URL, {
+            orderID : orderID, 
+            firstName: user.firstName, 
+            items: JSON.parse(localStorage.getItem('items')) || [],
+            total : calculateTotal(), 
+            email: user.email,
+            address: selectedOption === 'option-delivery' ? user.address : ""
+         });
+         return response.data;
+      } catch (error) {
+         console.error(error);
+         return;
+      }
    };
 
    if (error) {

@@ -10,6 +10,7 @@ const productsRoutes = require('./routes/productsRoutes');
 const ordersRoutes = require('./routes/ordersRoutes');
 const userRoutes = require('./routes/userRoutes');
 const cartRoutes = require('./routes/cartRoutes');
+const mailRoutes = require('./routes/emailRoutes');
 
 //Cargar variables de entorno 
 dotenv.config();
@@ -31,6 +32,7 @@ app.use("/api/products", productsRoutes);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/carts", cartRoutes);
+app.use("/api/mail", mailRoutes);
 
 mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('Connection to MongoDB successful'))

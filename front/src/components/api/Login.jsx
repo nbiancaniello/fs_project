@@ -29,10 +29,9 @@ const Login = () => {
       try {
          const response = await axios.get(BASE_URL); // Use axios to get data
          var data = response.data; // Extract data from the response
-   
          // Ensure data.products exists and is an array
          if (data) {
-            localStorage.setItem("items", JSON.stringify(data.items));            
+            localStorage.setItem("items", JSON.stringify(data.items.flatMap(itemObj => itemObj.items)));
          } else {
             throw new Error('Data format is incorrect.'); // Check data structure
          }
