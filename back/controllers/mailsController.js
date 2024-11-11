@@ -3,7 +3,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 
-const customerEmail = async (req, res) => {
+const customerEmail = async (req, res, next) => {
    try {
       const { orderID, firstName, lastname, items, total, email, address } = req.body;
       const transporter = nodemailer.createTransport({
@@ -34,8 +34,8 @@ const customerEmail = async (req, res) => {
          }
          console.log('Message sent: %s', info.messageId);
          console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-         return res.render('emailConfirmation');
-
+         // After sending the customer email, pass control to the next middleware
+         next();
       });
 
    } catch (error) {
@@ -47,6 +47,7 @@ const customerEmail = async (req, res) => {
 const proofEmail = async (req, res) => {
    try {
       const { orderID, firstName, lastname, items, total, email, address } = req.body;
+      console.log(req.body);
       const transporter = nodemailer.createTransport({
          host: 'smtp.gmail.com',
          port: 587,
@@ -60,12 +61,10 @@ const proofEmail = async (req, res) => {
       \n
       Email: ${email}
       \n
-      ${address ? `Enviar a: ${address}\n` : `Retira en el local`} 
+      ${address ? `Enviar a: ${address}` : `Retira en el local`} 
       \n
-      Items: ${items}
-      \n
+      Items: \n ${items.map(item => `- ${item.description} x ${item.qty} \n`)}
       Total a cobrar: ${total}
-      \n
       `;
 
       const mailOptions = {
@@ -81,8 +80,7 @@ const proofEmail = async (req, res) => {
          }
          console.log('Message sent: %s', info.messageId);
          console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-         return res.render('emailConfirmation');
-
+         return res.status(200).send("Email sent successfully");
       });
 
    } catch (error) {

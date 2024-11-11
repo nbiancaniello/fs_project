@@ -57,7 +57,7 @@ function ProductByCategory() {
                      _id={product._id}
                      price={product.price}
                      description={product.description}
-                     image={`/products/img/${product.image}`}
+                     image={`http://localhost:5000/static/uploads/${product.image}`}
                      className={"product-card-add-button"}
                      promotionPrice={product.promotionPrice}
                   />

@@ -50,7 +50,7 @@ function ProductById() {
    return (
          <div className="product-details">
             <div className="product-details-image">
-               <img src={`/products/img/${product.image}`} alt={product.description} />
+               <img src={`http://localhost:5000/static/uploads/${product.image}`} alt={product.description} />
             </div>
             <div className="product-details-info">
                <h1 className="product-details-info-title">{product.description}</h1>
