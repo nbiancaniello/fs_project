@@ -4,8 +4,9 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert'
 import './User.css';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import {api} from '../api/api';
 import { useNavigate } from 'react-router-dom';
+
 function UserProfile() {
    const [user, setUser] = useState(null);
    const [error, setError] = useState(null);
@@ -21,9 +22,8 @@ function UserProfile() {
    const navigate = useNavigate();
 
    const fetchCustomerData = async (userID) => {
-      const BASE_URL = `http://localhost:5000/api/users/${userID}`;
       try {
-         const response = await axios.get(BASE_URL);
+         const response = await api.get(`/users/${userID}`);
          return response.data;
       } catch (error) {
          console.error(error);
@@ -76,7 +76,7 @@ function UserProfile() {
    const updateProfile = async () => {
       try {
          const userID = localStorage.getItem('userID');
-         await axios.put(`http://localhost:5000/api/users/${userID}`, {
+         await api.put(`/users/${userID}`, {
             firstName: firstName,
             lastName: lastName,
             email: email,
@@ -90,8 +90,8 @@ function UserProfile() {
       }
    };
 
-   const handleLogout = () => {
-      localStorage.clear();
+   const handleLogout = async () => {
+      await localStorage.clear();
       navigate('/');
       window.location.reload();
    };
@@ -114,6 +114,7 @@ function UserProfile() {
                {alertMessage}
             </Alert>
          )}
+         <h1>Detalles de usuario</h1>
          <Form id='user-details' noValidate validated={validated} onSubmit={handleFormSubmit}>
             <Form.Group as={Col} controlId="validationCustom01">
                <Form.Label>Nombre</Form.Label>
@@ -161,8 +162,8 @@ function UserProfile() {
                onChange={(e) => setAddress(e.target.value)}
                   required
             />
-            <Button  id="user-profile-save" type="submit">Guardar Cambios</Button>
-            <Button  id="user-logout" type="submit" onClick={handleLogout}>Cerrar Sesión</Button>
+            <Button type="submit">Guardar Cambios</Button>
+            <Button type="submit" onClick={handleLogout}>Cerrar Sesión</Button>
          </Form>
       </div>
    );

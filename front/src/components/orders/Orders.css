@@ -1,3 +1,10 @@
+.orders-container{
+   display: grid;
+   flex-direction: column;
+   padding: 2rem;
+   width: 70%;
+}
+
 .order-row{
    display: flex;
    flex-direction: column;
@@ -33,4 +40,21 @@
 .order-item-row img{
    width: 5rem;
    margin: 1rem;
+}
+
+.empty-orders{
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-top: 1rem;
+   font-size: 2rem;
+   padding: 2rem;
+   font-weight: 700;
+   color: #27542ade;
+}
+
+.empty-orders p{
+   margin-top: 2rem;
+   font-size: 3rem;
 }

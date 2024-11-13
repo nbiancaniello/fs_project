@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
-
+import {api, imgLocation} from "../api/api";
 import './Orders.css';
 
 function Orders() {
    const [orders, setOrders] = useState([]);
    const [error, setError] = useState(null);
-
    const fetchOrdersByUsername = async (userID) => {
-
-      const BASE_URL = `http://localhost:5000/api/orders/${userID}`;
       try {
-         const response = await axios.get(BASE_URL);
+         const response = await api.get(`/orders/${userID}`);
          return response.data;
       } catch (error) {
          console.error(error);
@@ -58,9 +54,15 @@ function Orders() {
    };
 
    return (
-      <div className='shopping-cart'>
-         <h2>Órdenes</h2>
-
+      <>
+      <div className='orders-container'>
+         
+         {orders.length === 0 &&
+         <div className='empty-orders'>
+            {/* <FontAwesomeIcon size='10x' icon={faShopSlash} /> */}
+            <p>Aún no tienes órdenes</p>
+         </div>}
+         {orders.length !== 0 && <h2>Órdenes</h2>}
          {orders.map((order) => (
             <div key={order._id} className='order-row'>
                <p className="order-row-label">#{order.orderID} - Fecha: {formatDate(order.dateIssued)}</p>
@@ -70,7 +72,7 @@ function Orders() {
                            <p>{item.description}</p>
                            <p>Cant: {item.qty}</p>
                            <p>${item.price}</p>
-                           {item.image && <img src={item.image} alt={item.description} />}
+                           {item.image && <img src={`${imgLocation}${item.image}`}alt={item.description} />}
                         </div>
                      ))
                   
@@ -81,6 +83,8 @@ function Orders() {
             </div>
          ))}
       </div>
+      </>
+      
    );
 }
 

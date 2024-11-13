@@ -4,7 +4,7 @@ import { Container, Row } from 'react-bootstrap';
 import { useEffect, useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import {api, imgLocation} from '../api/api';
 
 function ProductsList({ filter: propFilter }) {
    const [products, setProducts] = useState([]);
@@ -19,9 +19,8 @@ function ProductsList({ filter: propFilter }) {
    }, [propFilter, location.search]);
 
    const fetchProducts = async (filter = null) => {
-      const BASE_URL = `http://localhost:5000/api/products`;
       try {
-         const response = await axios.get(BASE_URL); // Use axios to get data
+         const response = await api.get('/products');
          var data = response.data; // Extract data from the response
    
          // Ensure data.products exists and is an array
@@ -67,25 +66,28 @@ function ProductsList({ filter: propFilter }) {
    }, [getFilter, location.search, propFilter]);
 
    return (
-      <div className='products-list'>
+      <>
          <h1 className="products-title">{getFilter() === "isNewArrival" ? "Nuevos Ingresos" : "Promociones"}</h1>
-         <Container>
-            <Row xs={1} sm={2} md={2} lg={2} xl={3} xxl={3} className='g-4'>
-               {loading ? <p>Cargando...</p> : products.map((product) => (
-                  <ProductCard
-                     key={product._id}
-                     _id={product._id}
-                     price={product.price}
-                     description={product.description}
-                     image={`http://localhost:5000/static/uploads/${product.image}`}
-                     className={"product-card-add-button"}
-                     promotionPrice={product.promotionPrice}
-                  />
-               ))
-               }
-            </Row>
-         </Container>
-      </div>
+         <div className='products-list'>
+            <Container>
+               <Row xs={1} sm={2} md={2} lg={2} xl={3} xxl={3} className='g-4'>
+                  {loading ? <p>Cargando...</p> : products.map((product) => (
+                     <ProductCard
+                        key={product._id}
+                        _id={product._id}
+                        price={product.price}
+                        description={product.description}
+                        image={`${imgLocation}${product.image}`}
+                        className={"product-card-add-button"}
+                        promotionPrice={product.promotionPrice}
+                     />
+                  ))
+                  }
+               </Row>
+            </Container>
+         </div>
+      </>
+      
    );
 }
 

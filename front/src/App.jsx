@@ -16,8 +16,6 @@ import Login from './components/api/Login'
 import Register from './components/api/Register'
 import ProtectedRoute from './components/api/ProtectedRoute'
 
-// import axios from 'axios';
-
 function App() {
   return (
     <Router>

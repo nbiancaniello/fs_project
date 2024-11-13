@@ -6,20 +6,21 @@ import {faShopSlash} from '@fortawesome/free-solid-svg-icons/faShopSlash';
 import HorizontalRule from './HorizontalRule';
 import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
+import { imgLocation } from '../api/api';
 
 const ShoppingCart = () => {
-  const { items, totalCost } = useCart(); 
+  const { items, totalCost } = useCart();
 
   return (
     <div className='shopping-cart'>
-        <h2> Carrito de Compras </h2>
         {items.length === 0 &&
         <div className='empty-cart'>
           <FontAwesomeIcon size='10x' icon={faShopSlash} />
           <p>No hay items en el carrito</p>
         </div>}
+        {items.length !== 0 && <h2> Carrito de Compras </h2>}
         {items.map((item) => (
-          <ShoppingCartItem key={item.id} id={item.id} description={item.description} price={item.price} qty={item.qty} image={item.image} />
+          <ShoppingCartItem key={item.id} id={item.id} description={item.description} price={item.price} qty={item.qty} image= {`${imgLocation}${item.image}`} />
         ))}
         {items.length !== 0 &&
         <div>

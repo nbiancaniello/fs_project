@@ -3,7 +3,8 @@ import { Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useCart } from '../cart/CartProvider';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import {api} from '../api/api';
+
 function ShoppingCartUserDetails() {
    const [user, setUser] = useState(null);
    const [error, setError] = useState(null);
@@ -14,9 +15,8 @@ function ShoppingCartUserDetails() {
    const navigate = useNavigate();
 
    const fetchCustomerData = async (userID) => {
-      const BASE_URL = `http://localhost:5000/api/users/${userID}`;
       try {
-         const response = await axios.get(BASE_URL);
+         const response = await api.get(`/users/${userID}`);
          return response.data;
       } catch (error) {
          console.error(error);
@@ -76,7 +76,7 @@ function ShoppingCartUserDetails() {
    
    const createOrder = async () => {
       try {
-         await axios.post('http://localhost:5000/api/orders', {
+         await api.post('/orders', {
             orderID: orderID,
             userID: localStorage.getItem('userID'),
             totalAmount: calculateTotal(),
@@ -95,9 +95,8 @@ function ShoppingCartUserDetails() {
    };
 
    const sendEmail = async () => {
-      const BASE_URL = `http://localhost:5000/api/mail/sendEmail`;
       try {
-         const response = await axios.post(BASE_URL, {
+         const response = await api.post(`/mail/sendEmail`, {
             orderID : orderID, 
             firstName: user.firstName, 
             items: JSON.parse(localStorage.getItem('items')) || [],

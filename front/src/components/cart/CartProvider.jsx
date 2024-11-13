@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import {api, imgLocation} from '../api/api';
 
 const CartContext = createContext();
 
@@ -35,6 +35,7 @@ export const CartProvider = ({ children }) => {
                ...item,
                qty: parseFloat(item.qty) || 0, 
                price: parseFloat(item.price) || 0.0
+               
             }));
    
             // Sort the products array by id
@@ -52,6 +53,9 @@ export const CartProvider = ({ children }) => {
    const addItem = (id, description, price, qty, image) => {
       const updatedItems = [...items];
       const existingItemIndex = updatedItems.findIndex(item => item.id === id);
+      // Remove the path from the image
+      const regex = new RegExp(`^${imgLocation}`);
+      image = image.replace(regex, '');
       if (existingItemIndex > -1) {
          updatedItems[existingItemIndex].qty = qty;
       } else {
@@ -83,7 +87,7 @@ export const CartProvider = ({ children }) => {
       try {
          const items = JSON.parse(localStorage.getItem('items')) || [];
          const userID = localStorage.getItem('userID');
-         await axios.put(`http://localhost:5000/api/carts/${userID}`, {
+         await api.put(`/carts/${userID}`, {
             items: items
          });
       } catch (error) {

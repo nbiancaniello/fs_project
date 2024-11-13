@@ -3,17 +3,15 @@ import { useParams } from 'react-router-dom';
 import { Container, Row } from "react-bootstrap";
 import ProductCard from "./ProductCard";
 import './Products.css';
-import axios from 'axios';
-
+import {api, imgLocation} from "../api/api";
 function ProductByCategory() {
    const { category } = useParams();
    const [products, setProducts] = useState([]);
    const [error, setError] = useState(null);
 
    const fetchProductsByCategory = async (category) => {
-      const BASE_URL = `http://localhost:5000/api/products/category/${category}`;
       try {
-         const response = await axios.get(BASE_URL);
+         const response = await api.get(`/products/category/${category}`);
          return response.data;
    
       } catch (error) {
@@ -47,25 +45,28 @@ function ProductByCategory() {
    }
 
    return (
-      <div className='products-list'>
+      <>
          <h1 className="products-title">{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
-         <Container>
-            <Row>
-               {products.map((product) => (
-                  <ProductCard
-                     key={product._id}
-                     _id={product._id}
-                     price={product.price}
-                     description={product.description}
-                     image={`http://localhost:5000/static/uploads/${product.image}`}
-                     className={"product-card-add-button"}
-                     promotionPrice={product.promotionPrice}
-                  />
-               ))
-               }
-            </Row>
-         </Container>
-      </div>
+         <div className='products-list'>
+            <Container>
+               <Row>
+                  {products.map((product) => (
+                     <ProductCard
+                        key={product._id}
+                        _id={product._id}
+                        price={product.price}
+                        description={product.description}
+                        image={`${imgLocation}${product.image}`}
+                        className={"product-card-add-button"}
+                        promotionPrice={product.promotionPrice}
+                     />
+                  ))
+                  }
+               </Row>
+            </Container>
+         </div>
+      </>
+      
    );
 }
 

@@ -26,6 +26,10 @@ app.use(session({
 }));
 
 // Middleware para servir archivos estáticos desde la carpeta 'public'
+app.use((req, res, next) => {
+   res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+   next();
+ });
 app.use('/static',express.static(path.join(__dirname, "public")));
 
 app.use("/api/products", productsRoutes);

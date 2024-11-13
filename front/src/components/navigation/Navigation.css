@@ -10,7 +10,11 @@ nav{
    height: 5vh;
 }
 
-#user-profile, #search-button, #shop-cart{
+.navbar-nav{
+   align-items: center;
+}
+
+#user-profile, #search-button, #shop-cart, #user-login, #user-register{
    display: flex;
    font-size: 1.3rem;
    margin: 0rem 0.2rem;
@@ -23,7 +27,7 @@ nav{
    transition: 0.3s;
 }
 
-#user-profile:hover, #search-button:hover, #shop-cart:hover{
+#user-profile:hover, #search-button:hover, #shop-cart:hover, #user-login:hover, #user-register:hover{
    background-color: #27542ade;
    color: white;
 }
@@ -32,34 +36,39 @@ nav{
    width: 200px;
 }
 
-#offcanvasNavbarDropdown{
+.nav-item-title{
    color: #27542ade;
+   margin: 0rem 0.2rem;
 }
 
 .dropdown-item {
-   font-size: 1.5rem;
-   color: #27542ade;
-
-}
-
-.dropdown-menu li {
-   position: relative;
-}
-.dropdown-menu .dropdown-submenu {
-   display: none;
-   position: absolute;
-   left: 100%;
-   top: -7px;
-}
-.dropdown-menu .dropdown-submenu-left {
-   right: 100%;
-   left: auto;
-}
-.dropdown-menu > li:hover > .dropdown-submenu {
-   display: block;
+   font-size: 1.1rem;
+   transition: all 0.3s step-start;
 }
 
 .link{
    text-decoration: none;
    color: black;
+}
+
+.logo{
+   width: 3%;
+   padding: 0.3rem;
+   margin: 0.3rem;
+}
+
+@media (min-width:767px) and (max-width: 1440px) {
+
+}
+
+@media (min-width: 767px) and (max-width: 1600px) {
+   #user-profile, #search-button, #shop-cart, #user-login, #user-register{
+      display: flex;
+      font-size: 1rem;
+      margin: 1rem 0.2rem;
+      color: #27542ade;
+      background-color: white;
+      border: 0.5px solid #578b5be0;
+      transition: 0.3s;
+   }
 }

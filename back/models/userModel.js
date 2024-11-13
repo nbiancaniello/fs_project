@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
    address: { type: String, required: false },
    defaultPaymentType: { type: String, required: false },
    isActive: { type: Boolean, default: true },
+   emailVerified: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("User", userSchema);

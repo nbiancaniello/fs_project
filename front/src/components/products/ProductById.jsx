@@ -3,17 +3,15 @@ import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import ProductForm from './ProductForm';
 import './Products.css';
-import axios from 'axios';
-
+import {api, imgLocation} from '../api/api';
 function ProductById() {
    const { id } = useParams();
    const [product, setProduct] = useState(null);
    const [error, setError] = useState(null);
 
    const fetchProductsById = async (id) => {
-      const BASE_URL = `http://localhost:5000/api/products/${id}`;
       try {
-         const response = await axios.get(BASE_URL);
+         const response = await api.get(`/products/${id}`);
          return response.data;
    
       } catch (error) {
@@ -50,7 +48,7 @@ function ProductById() {
    return (
          <div className="product-details">
             <div className="product-details-image">
-               <img src={`http://localhost:5000/static/uploads/${product.image}`} alt={product.description} />
+               <img src={`${imgLocation}${product.image}`} alt={product.description} />
             </div>
             <div className="product-details-info">
                <h1 className="product-details-info-title">{product.description}</h1>

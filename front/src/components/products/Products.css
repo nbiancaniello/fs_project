@@ -148,6 +148,19 @@
    object-fit: cover;
 }
 
+.card-img:hover{
+   cursor: pointer;
+}
+
+.products-title{
+   text-align: center;
+   font-weight: 700;
+   color: #27542ade;
+   background-color: #91d2952a;
+   padding: 1rem;
+   /* width: 100%; */
+}
+
 @media (max-width: 767px) {
    .products-list{
       align-items: center;

@@ -1,37 +1,53 @@
-#user-details{
+.register-link{
+   text-align: center;
+}
+
+.register-link:hover{
+cursor: pointer;
+}
+
+.input-container{
    display: flex;
    flex-direction: column;
-   padding: 1rem;
+   justify-content: center;
    border: 1px solid rgba(8, 71, 17, 0.295);
    border-radius: 10px;
+   padding: 2rem;
+   background-color: #91d2952a;
 }
 
-#user-details label{
+.input-container h1{
    font-weight: 700;
    color: #27542ade;
-   padding: 0.4rem;
+   margin-bottom: 2rem;
 }
 
-#user-details input{
+.input-container input{
    font-weight: 00;
    border: 1px solid rgba(8, 71, 17, 0.295);
    border-radius: 10px;
    padding: 0.5rem;
    margin-bottom: 0.4rem;
+   width: 100%;
 }
 
-#user-details button{
-   margin-top: 1rem;
+.input-container button{
    font-size: 1rem;
-   /* padding: 1rem; */
+   padding: 1rem;
    border-radius: 10px;
    border: 1px solid #27542ade;
    background-color: #91d2952a;
    color: #27542ade;
-   transition: 0.3s;
+   width: 100%;
+   transition: 0.3s ease-in-out;
 }
 
-#user-details button:hover{
+.input-container button:hover{
    background-color: #27542ade;
    color: white;
+}
+
+.input-container p{
+   margin-top: 1rem;
+   color: #27542ade;
 }

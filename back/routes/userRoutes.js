@@ -6,18 +6,19 @@ const bcrypt = require("bcrypt");
 
 // Route to create a new user
 router.post("/register", async(req,res) => {
-   const {username, password} = req.body;
+   const {username, password, email} = req.body;
 
    try{
       const existingUser = await User.findOne({username});
       if(existingUser){
-         return res.status(400).send("User already exists");
+         return res.status(400).send("El usuario ya existe");
       }
-   
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new User({
          username,
-         password: hashedPassword
+         password: hashedPassword,
+         email,
+         emailActivated: false
       });
       await newUser.save();
       res.status(201).send("User created successfully");
@@ -33,14 +34,22 @@ router.post("/login", async(req,res) => {
    try{
       const user = await User.findOne({username});
       if(!user){
-         return res.status(400).send("User not found");
+         return res.status(400).send("Usuario no encontrado");
       }
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
       if(!isPasswordCorrect){
-         return res.status(400).send("Incorrect password");
+         return res.status(400).send("Contraseña incorrecta");
       }
+      // ToDo: Add email verification logic
+      // if(!user.emailVerified){
+      //    return res.status(400).send("Debes activar tu cuenta, por favor verifica tu correo");
+      // }
+
       req.session.user = user._id;
-      res.status(200).send({ message: "Login successful", userID: user._id });
+      res.status(200).send({ 
+         message: "Login successful", 
+         userID: user._id, 
+         userInitials: user.firstName === undefined && user.lastName === undefined ? "U" : user.firstName.charAt(0) + user.lastName.charAt(0) });
    }catch(err){
       console.error("Error logging in:", err);
    }
