@@ -1,6 +1,5 @@
 back/node_modules/
 back/.env
-back/public/uploads
 
 front/.env
 front/public
