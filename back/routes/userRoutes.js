@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 
 // Route to create a new user
 router.post("/register", async(req,res) => {
-   const {username, password, email} = req.body;
+   const {username, password, firstName, lastName, email, phone, address} = req.body;
 
    try{
       const existingUser = await User.findOne({username});
@@ -17,11 +17,15 @@ router.post("/register", async(req,res) => {
       const newUser = new User({
          username,
          password: hashedPassword,
+         firstName,
+         lastName,
          email,
-         emailActivated: false
+         phone,
+         address
+         // emailActivated: false
       });
       await newUser.save();
-      res.status(201).send("User created successfully");
+      res.status(200).send("User created successfully");
    }catch(err){
       console.error("Error creating user:", err);
    }

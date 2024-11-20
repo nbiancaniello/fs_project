@@ -99,6 +99,7 @@ function ShoppingCartUserDetails() {
          const response = await api.post(`/mail/sendEmail`, {
             orderID : orderID, 
             firstName: user.firstName, 
+            lastName: user.lastName,
             items: JSON.parse(localStorage.getItem('items')) || [],
             total : calculateTotal(), 
             email: user.email,
@@ -127,28 +128,24 @@ function ShoppingCartUserDetails() {
             type="text"
             defaultValue={user.firstName}
             disabled
-            required
          />
          <Form.Label>Apellido</Form.Label>
          <Form.Control
             type="text"
             defaultValue={user.lastName}
             disabled
-            required
          />
          <Form.Label>Email</Form.Label>
          <Form.Control
             type="email"
             defaultValue={user.email}
             disabled
-            required
          />
          <Form.Label>Teléfono</Form.Label>
          <Form.Control
             type="text"
             defaultValue={user.phone}
             disabled
-            required
          />
          <div key="option-delivery" className="mb-3">
             <Form.Check 
@@ -178,7 +175,6 @@ function ShoppingCartUserDetails() {
                   type="text"
                   defaultValue={user.address}
                   disabled
-                  required
                />   
             </>
          )}

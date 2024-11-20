@@ -39,6 +39,12 @@ nav{
 .nav-item-title{
    color: #27542ade;
    margin: 0rem 0.2rem;
+   font-weight: bold;
+   transition: all 0.3s step-start;
+}
+
+.nav-item-title:hover{
+   color: #27542ade;
 }
 
 .dropdown-item {
@@ -57,10 +63,6 @@ nav{
    margin: 0.3rem;
 }
 
-@media (min-width:767px) and (max-width: 1440px) {
-
-}
-
 @media (min-width: 767px) and (max-width: 1600px) {
    #user-profile, #search-button, #shop-cart, #user-login, #user-register{
       display: flex;
@@ -71,4 +73,6 @@ nav{
       border: 0.5px solid #578b5be0;
       transition: 0.3s;
    }
+
+
 }

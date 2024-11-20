@@ -39,7 +39,7 @@ function Navigation() {
                   </Offcanvas.Title>
                </Offcanvas.Header>
                <Offcanvas.Body>
-                  <Nav className="justify-content-flex-start flex-grow-1 pe-3">
+                  <Nav className="flex-direction-row justify-content-flex-start flex-grow-1 pe-3">
                      <NavDropdown title="Productos" className="nav-item-title">
                         <NavDropdown.Item as={Link} to="/Products?filter=isPromotion">Promociones</NavDropdown.Item>
                         <NavDropdown.Item as={Link} to="/Products?filter=isNewArrival">Recién llegado</NavDropdown.Item>
@@ -64,18 +64,20 @@ function Navigation() {
                         <FontAwesomeIcon size="lg" icon={faMagnifyingGlass} />
                      </Button>
                   </Form> */}
-                  <Link className='link' to="/shoppingCart">
-                     <Button id="shop-cart" >
-                        <FontAwesomeIcon size="lg" icon={faCartShopping} />${totalCost}
-                     </Button>
-                  </Link>
                   {isAuthenticated ? (
-                     <Link className='link' to="/userProfile">
-                        <Button id="user-profile">
-                           <FontAwesomeIcon size="lg" icon={faUser} className="me-2"/>
-                           {userInitials}
-                        </Button>
-                     </Link>
+                     <>
+                        <Link className='link' to="/shoppingCart">
+                           <Button id="shop-cart" >
+                              <FontAwesomeIcon size="lg" icon={faCartShopping} />${totalCost}
+                           </Button>
+                        </Link>
+                        <Link className='link' to="/userProfile">
+                           <Button id="user-profile">
+                              <FontAwesomeIcon size="lg" icon={faUser} className="me-2"/>
+                              {userInitials}
+                           </Button>
+                        </Link>
+                     </>
                   ) : (
                      <>
                      <Link className='link' to="/login">

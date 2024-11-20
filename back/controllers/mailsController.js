@@ -47,7 +47,6 @@ const customerEmail = async (req, res, next) => {
 const proofEmail = async (req, res) => {
    try {
       const { orderID, firstName, lastname, items, total, email, address } = req.body;
-      console.log(req.body);
       const transporter = nodemailer.createTransport({
          host: 'smtp.gmail.com',
          port: 587,

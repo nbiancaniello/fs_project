@@ -10,17 +10,31 @@
 }
 
 #cart-qty{
-   margin: 0.5rem 0rem 0.5rem 0rem;
+   margin: 0.6rem 0rem 0.6rem 0rem;
    font-size: 1.3rem;
+   width: 90px;
 }
 
 @media (max-width: 766px) {
+   #cart-qty{
+      margin: 0.2rem 0rem 0.2rem 0rem;
+      font-size: 1rem;
+      width: 60px;
+   }
 }
 
 @media (min-width:767px) and (max-width: 1399px) {
-
+   #cart-qty{
+      margin: 0.3rem 0rem 0.3rem 0rem;
+      font-size: 1.1rem;
+      width: 70px;
+   }
 }
 
 @media (min-width: 1400px) and (max-width: 1600px) {
-
+   #cart-qty{
+      margin: 0.4rem 0rem 0.4rem 0rem;
+      font-size: 1.2rem;
+      width: 80px;
+   }
 }

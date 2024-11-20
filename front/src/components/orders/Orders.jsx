@@ -62,7 +62,7 @@ function Orders() {
             {/* <FontAwesomeIcon size='10x' icon={faShopSlash} /> */}
             <p>Aún no tienes órdenes</p>
          </div>}
-         {orders.length !== 0 && <h2>Órdenes</h2>}
+         {orders.length !== 0 && <h2 className='orders-title'>Órdenes</h2>}
          {orders.map((order) => (
             <div key={order._id} className='order-row'>
                <p className="order-row-label">#{order.orderID} - Fecha: {formatDate(order.dateIssued)}</p>

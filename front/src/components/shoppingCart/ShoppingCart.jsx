@@ -18,7 +18,7 @@ const ShoppingCart = () => {
           <FontAwesomeIcon size='10x' icon={faShopSlash} />
           <p>No hay items en el carrito</p>
         </div>}
-        {items.length !== 0 && <h2> Carrito de Compras </h2>}
+        {items.length !== 0 && <h2 className='shopping-cart-title'> Carrito de Compras </h2>}
         {items.map((item) => (
           <ShoppingCartItem key={item.id} id={item.id} description={item.description} price={item.price} qty={item.qty} image= {`${imgLocation}${item.image}`} />
         ))}

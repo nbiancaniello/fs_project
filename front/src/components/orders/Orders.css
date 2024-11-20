@@ -5,6 +5,15 @@
    width: 70%;
 }
 
+.orders-title{
+   text-align: center;
+   font-weight: 700;
+   color: #27542ade;
+   background-color: #91d2952a;
+   padding: 1rem;
+   /* width: 100%; */
+}
+
 .order-row{
    display: flex;
    flex-direction: column;

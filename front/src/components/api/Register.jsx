@@ -6,15 +6,20 @@ import  './api.css';
 const Register = () => {
    const[username, setUsername] = useState('');
    const[password, setPassword] = useState('');
+   const[firstName, setFirstName] = useState('');
+   const[lastName, setLastName] = useState('');
    const[email, setEmail] = useState('');
+   const[phone, setPhone] = useState('');
+   const[address, setAddress] = useState('');
 
    const navigate = useNavigate();
 
    const handleSubmit = async (e) => {
       e.preventDefault();
       try{
-         await api.post('users/register', {username, password, email});
+         await api.post('users/register', {username, password, firstName, lastName, email, phone, address});
          navigate('/login');
+         alert('Usuario registrado con exito');
          window.location.reload();
       } catch(err) {
          if (err.response && err.response.data) {
@@ -31,7 +36,7 @@ return(
       <form onSubmit={handleSubmit}>
          <input type="text" 
          value={username}
-         placeholder="Username"
+         placeholder="Usuario"
          onChange={(e) => setUsername(e.target.value)} 
          required
          />
@@ -45,10 +50,42 @@ return(
          />
          <br></br>
          <br></br>
-         <input type="email" 
+         <input type="text" 
+         value={firstName}
+         placeholder="Nombre"
+         onChange={(e) => setFirstName(e.target.value)} 
+         required
+         />
+         <br></br>
+         <br></br>
+         <input type="text" 
+         value={lastName}
+         placeholder="Apellido"
+         onChange={(e) => setLastName(e.target.value)} 
+         required
+         />
+         <br></br>
+         <br></br>
+         <input type="text" 
          value={email}
          placeholder="Email"
          onChange={(e) => setEmail(e.target.value)} 
+         required
+         />
+         <br></br>
+         <br></br>
+         <input type="text" 
+         value={phone}
+         placeholder="Telefono"
+         onChange={(e) => setPhone(e.target.value)} 
+         required
+         />
+         <br></br>
+         <br></br>
+         <input type="text" 
+         value={address}
+         placeholder="Direccion"
+         onChange={(e) => setAddress(e.target.value)} 
          required
          />
          <br></br>
