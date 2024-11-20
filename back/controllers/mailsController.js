@@ -46,7 +46,7 @@ const customerEmail = async (req, res, next) => {
 
 const proofEmail = async (req, res) => {
    try {
-      const { orderID, firstName, lastname, items, total, email, address } = req.body;
+      const { orderID, firstName, lastName, items, total, email, address } = req.body;
       const transporter = nodemailer.createTransport({
          host: 'smtp.gmail.com',
          port: 587,
@@ -55,8 +55,7 @@ const proofEmail = async (req, res) => {
             pass: process.env.SMTP_GOOGLE_SECRET
          }
       });
-
-      const message = `Nombre: ${firstName} ${lastname}
+      const message = `Nombre: ${firstName} ${lastName}
       \n
       Email: ${email}
       \n
@@ -69,7 +68,7 @@ const proofEmail = async (req, res) => {
       const mailOptions = {
          from: transporter.options.auth.user, // sender address
          to: transporter.options.auth.user, // list of receivers
-         subject: `Pedido de ${firstName} ${lastname} Nro: ${orderID}`, // Subject line
+         subject: `Pedido de ${firstName} ${lastName} Nro: ${orderID}`, // Subject line
          text: message
       };
 
