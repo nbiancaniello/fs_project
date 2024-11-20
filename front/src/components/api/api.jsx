@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-   baseURL: 'http://localhost:5000/api',
+   baseURL: 'https://fs-project-cr99.onrender.com/api',
 });
 
-export const imgLocation = 'http://localhost:5000/static/uploads/';
+export const imgLocation = 'https://fs-project-cr99.onrender.com/static/uploads/';
