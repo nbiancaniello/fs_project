@@ -81,9 +81,10 @@ router.get("/protected", (req,res) => {
    }
 });
 
+// Route to get user by ID
 router.get("/:id", usersController.getUserByID);
 
-// Route to create an order
+// Route to update a User information
 router.put("/:id", usersController.updateUserByID);
 
 module.exports = router;

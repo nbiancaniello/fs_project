@@ -2,12 +2,12 @@
 
 # Sistema de Almacén online
 
-Este proyecto es una aplicación web para la compra online de productos de almacé, desarrollada utilizando React para el frontend y Node.js con Express para el backend. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre órdenes, utilizando MongoDB como base de datos.
+Este proyecto es una aplicación web para la compra online de productos de almacén, desarrollada utilizando React para el frontend y Node.js con Express para el backend. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre órdenes, utilizando MongoDB como base de datos.
 
 ## Tecnologías Utilizadas
 
 - **Frontend**: React, React Router, CSS
-- **Backend**: Node.js, Express
+- **Backend**: Node.js, Express, Express-Session
 - **Base de Datos**: MongoDB, Mongoose
 
 ## Estructura del Proyecto
@@ -33,7 +33,15 @@ Este proyecto es una aplicación web para la compra online de productos de almac
 
     Asegúrate de reemplazar `mi-base-de-datos` con el nombre de tu base de datos en MongoDB y `puerto` con el puerto configurado.
 
-4. Inicia el servidor del backend.
+4. Ejecuta el siguiente comando para obtener una clave única para manejo de sesiones:
+
+    node -e "console.log(require('crypto').randomBytes(64).toString('hex'));"
+
+    y asígnala en la siguiente línea dentro de tu archivo `.env`
+    
+    SESSION_SECRET=`resultado`
+
+5. Inicia el servidor del backend.
 
     npm start
 
@@ -70,7 +78,15 @@ Este proyecto es una aplicación web para la compra online de productos de almac
 - `GET /api/products/category/:category` - Obtiene los productos por categoría.
 - `GET /api/orders/:username` - Obtiene el listado de órdenes por usuario.
 - `POST /api/orders` - Crea una nueva órden.
-
+- `POST /api/users/register` - Registra un nuevo usuario.
+- `POST /api/users/login` - Loguea un usuario.
+- `GET /api/users/logout` - Desloguea un usuario.
+- `GET /api/users/protected` - Verifica si el usuario está logueado o no.
+- `GET /api/users/:id` - Obtiene usuario por ID.
+- `PUT /api/users/:id` - Actualiza la información del usuario.
+- `GET /api/carts/:id` - Obtiene los datos del carro de compras del usuario logueado.
+- `PUT /api/carts/:id` - Guarda los items del carro de compras del usuario logueado.
+- `POST /api/mail/sendEmail` - Envía correos con la confirmación de la orden al usuario y admin del sistema.
 
 # Online Convenience Store System
 This project is a web application for the online purchase of convenience store products, developed using React for the frontend and Node.js with Express for the backend. The application allows for CRUD (Create, Read, Update, Delete) operations on orders, using MongoDB as the database.
@@ -102,7 +118,15 @@ This project is a web application for the online purchase of convenience store p
 
    Make sure to replace `my-database` with the name of your database in MongoDB and `port` with the configured port.
 
-4. Start the backend server.
+4. Execute the command below to obtain a unique key used in session handling:
+
+    node -e "console.log(require('crypto').randomBytes(64).toString('hex'));"
+
+    and assign it in your `.env` file
+    
+    SESSION_SECRET=`result`
+
+5. Start the backend server.
 
    npm start
 
@@ -129,10 +153,18 @@ This project is a web application for the online purchase of convenience store p
 - **Shopping Cart**: Manage selected products.
 - **User Screen**: Allows modification of existing user information.
 
-
 ## API Endpoints
 - `GET /api/products` - Retrieves all products.
 - `GET /api/products/:id` - Retrieves a product by ID.
 - `GET /api/products/category/:category` - Retrieves products by category.
 - `GET /api/orders/:username` - Retrieves the list of orders by user.
 - `POST /api/orders` - Creates a new order.
+- `POST /api/users/register` - Registers a new user.
+- `POST /api/users/login` - Logs in a user.
+- `GET /api/users/logout` - Logs out a user.
+- `GET /api/users/protected` - Verifies if user is logged in or not.
+- `GET /api/users/:id` - Gets user by ID.
+- `PUT /api/users/:id` - Updates user information.
+- `GET /api/carts/:id` - Gets the shopping cart items for the logged in user.
+- `PUT /api/carts/:id` - Saves the shopping cart items for the logged in user.
+- `POST /api/mail/sendEmail` - Sends emails with order confirmation to both user and system admin.
