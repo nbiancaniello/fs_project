@@ -7,7 +7,7 @@ Este proyecto es una aplicación web para la compra online de productos de almac
 ## Tecnologías Utilizadas
 
 - **Frontend**: React, React Router, CSS
-- **Backend**: Node.js, Express, Express-Session
+- **Backend**: Node.js, Express, Express-Session, Nodemailer
 - **Base de Datos**: MongoDB, Mongoose
 
 ## Estructura del Proyecto
@@ -39,9 +39,15 @@ Este proyecto es una aplicación web para la compra online de productos de almac
 
     y asígnala en la siguiente línea dentro de tu archivo `.env`
     
-    SESSION_SECRET=`resultado`
+    SESSION_SECRET=`[clave generada]`
 
-5. Inicia el servidor del backend.
+5. Este proyecto utiliza nodemailer para el envío de correos con cuenta de Gmail, para obtener la clave de aplicaciones menos seguras, sigue los pasos indicados en `https://nodemailer.com/usage/using-gmail/`.
+    Luego, setea las siguientes líneas dentro de tu archivo `.env`
+
+    SMTP_GOOGLE_MAIL=`[correo]@gmail.com`
+    SMTP_GOOGLE_SECRET=`[clave generada]`
+
+6. Inicia el servidor del backend.
 
     npm start
 
@@ -124,9 +130,16 @@ This project is a web application for the online purchase of convenience store p
 
     and assign it in your `.env` file
     
-    SESSION_SECRET=`result`
+    SESSION_SECRET=`[key generated]`
 
-5. Start the backend server.
+5. This proyect uses nodemailer to send emails using Gmail account. To obtain the key for less secure apps, follow the steps at `https://nodemailer.com/usage/using-gmail/`.
+    Then, set the lines below in your `.env`
+
+    SMTP_GOOGLE_MAIL=`[mail]@gmail.com`
+    SMTP_GOOGLE_SECRET=`[key generated]`
+
+
+6. Start the backend server.
 
    npm start
 
