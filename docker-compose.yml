@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  express-app:
+    build: ./back
+    container_name: express-backend
+    restart: always
+    ports:
+      - "8081:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+
+  react-app:
+    build: ./front
+    container_name: react-frontend
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - express-app

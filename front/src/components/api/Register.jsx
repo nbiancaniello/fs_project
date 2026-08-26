@@ -1,101 +1,192 @@
 import { useState } from 'react';
-import {api} from './api';
+import { api } from './api';
 import { useNavigate } from 'react-router-dom';
-import  './api.css';
+import './api.css';
 
 const Register = () => {
-   const[username, setUsername] = useState('');
-   const[password, setPassword] = useState('');
-   const[firstName, setFirstName] = useState('');
-   const[lastName, setLastName] = useState('');
-   const[email, setEmail] = useState('');
-   const[phone, setPhone] = useState('');
-   const[address, setAddress] = useState('');
-
+   const [formData, setFormData] = useState({
+      username: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      address: ''
+   });
+   const [errors, setErrors] = useState({});
+   const [isLoading, setIsLoading] = useState(false);
    const navigate = useNavigate();
+
+   const validateForm = () => {
+      const newErrors = {};
+      
+      if (!formData.username.trim()) {
+         newErrors.username = 'El usuario es requerido';
+      }
+      
+      if (!formData.password) {
+         newErrors.password = 'La contraseña es requerida';
+      } else if (formData.password.length < 6) {
+         newErrors.password = 'La contraseña debe tener al menos 6 caracteres';
+      }
+      
+      if (!formData.email) {
+         newErrors.email = 'El email es requerido';
+      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+         newErrors.email = 'Email inválido';
+      }
+      
+      if (!formData.phone.trim()) {
+         newErrors.phone = 'El teléfono es requerido';
+      } else if (!/^\d{10}$/.test(formData.phone.replace(/\D/g, ''))) {
+         newErrors.phone = 'Teléfono inválido (debe tener 10 dígitos)';
+      }
+
+      setErrors(newErrors);
+      return Object.keys(newErrors).length === 0;
+   };
+
+   const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(prev => ({
+         ...prev,
+         [name]: value
+      }));
+      // Clear error when user starts typing
+      if (errors[name]) {
+         setErrors(prev => ({
+            ...prev,
+            [name]: ''
+         }));
+      }
+   };
 
    const handleSubmit = async (e) => {
       e.preventDefault();
-      try{
-         await api.post('users/register', {username, password, firstName, lastName, email, phone, address});
-         navigate('/login');
-         alert('Usuario registrado con exito');
-         window.location.reload();
-      } catch(err) {
-         if (err.response && err.response.data) {
-            alert('Error al registrar usuario: ' + err.response.data);  // Show backend error message
-         } else {
-            alert('Ocurrió un error al registrar tu usuario.');  // Show a general error message if no response
-         }
+      
+      if (!validateForm()) {
+         return;
       }
-   }
 
-return(
-   <div className='input-container'>
-      <h1>Registro</h1>
-      <form onSubmit={handleSubmit}>
-         <input type="text" 
-         value={username}
-         placeholder="Usuario"
-         onChange={(e) => setUsername(e.target.value)} 
-         required
-         />
-         <br></br>
-         <br></br>
-         <input type="password" 
-         value={password}
-         placeholder="Password"
-         onChange={(e) => setPassword(e.target.value)} 
-         required
-         />
-         <br></br>
-         <br></br>
-         <input type="text" 
-         value={firstName}
-         placeholder="Nombre"
-         onChange={(e) => setFirstName(e.target.value)} 
-         required
-         />
-         <br></br>
-         <br></br>
-         <input type="text" 
-         value={lastName}
-         placeholder="Apellido"
-         onChange={(e) => setLastName(e.target.value)} 
-         required
-         />
-         <br></br>
-         <br></br>
-         <input type="text" 
-         value={email}
-         placeholder="Email"
-         onChange={(e) => setEmail(e.target.value)} 
-         required
-         />
-         <br></br>
-         <br></br>
-         <input type="text" 
-         value={phone}
-         placeholder="Telefono"
-         onChange={(e) => setPhone(e.target.value)} 
-         required
-         />
-         <br></br>
-         <br></br>
-         <input type="text" 
-         value={address}
-         placeholder="Direccion"
-         onChange={(e) => setAddress(e.target.value)} 
-         required
-         />
-         <br></br>
-         <br></br>
-         <button type="submit">Registrar</button>
-         <br></br>
-         <br></br>
-         <p>Ya estás registrado? <strong><a className='register-link' onClick={() => navigate('/login')}>Logueate acá</a></strong></p>
-      </form>
-   </div>
-)};
+      setIsLoading(true);
+      try {
+         await api.post('users/register', formData);
+         navigate('/login');
+         alert('Usuario registrado con éxito');
+      } catch (err) {
+         const errorMessage = err.response?.data || 'Ocurrió un error al registrar tu usuario.';
+         setErrors(prev => ({
+            ...prev,
+            submit: errorMessage
+         }));
+      } finally {
+         setIsLoading(false);
+      }
+   };
+
+   return (
+      <div className='input-container'>
+         <h1>Registro</h1>
+         <form onSubmit={handleSubmit}>
+            {errors.submit && <div className="error-message">{errors.submit}</div>}
+            
+            <div className="form-group">
+               <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  placeholder="Usuario"
+                  onChange={handleChange}
+                  className={errors.username ? 'error' : ''}
+               />
+               {errors.username && <span className="error-text">{errors.username}</span>}
+            </div>
+
+            <div className="form-group">
+               <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  placeholder="Contraseña"
+                  onChange={handleChange}
+                  className={errors.password ? 'error' : ''}
+               />
+               {errors.password && <span className="error-text">{errors.password}</span>}
+            </div>
+
+            <div className="form-group">
+               <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  placeholder="Nombre"
+                  onChange={handleChange}
+               />
+            </div>
+
+            <div className="form-group">
+               <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  placeholder="Apellido"
+                  onChange={handleChange}
+               />
+            </div>
+
+            <div className="form-group">
+               <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  placeholder="Email"
+                  onChange={handleChange}
+                  className={errors.email ? 'error' : ''}
+               />
+               {errors.email && <span className="error-text">{errors.email}</span>}
+            </div>
+
+            <div className="form-group">
+               <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  placeholder="Teléfono"
+                  onChange={handleChange}
+                  className={errors.phone ? 'error' : ''}
+               />
+               {errors.phone && <span className="error-text">{errors.phone}</span>}
+            </div>
+
+            <div className="form-group">
+               <input
+                  type="text"
+                  name="address"
+                  value={formData.address}
+                  placeholder="Dirección"
+                  onChange={handleChange}
+               />
+            </div>
+
+            <button 
+               type="submit" 
+               disabled={isLoading}
+               className={isLoading ? 'loading' : ''}
+            >
+               {isLoading ? 'Registrando...' : 'Registrar'}
+            </button>
+
+            <p>
+               ¿Ya estás registrado?{' '}
+               <strong>
+                  <a className='register-link' onClick={() => navigate('/login')}>
+                     Logueate acá
+                  </a>
+               </strong>
+            </p>
+         </form>
+      </div>
+   );
+};
 
 export default Register;
