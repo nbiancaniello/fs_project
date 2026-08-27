@@ -1,9 +1,14 @@
 back/node_modules/
 back/.env
 
+admin-back/node_modules/
+admin-back/.env
+
 front/.env
 front/public
 
+admin-front/.env
+admin-front/public
 
 # Logs
 front/logs
@@ -18,6 +23,12 @@ front/node_modules
 front/dist
 front/dist-ssr
 front/*.local
+
+admin-front/node_modules
+admin-front/dist
+
+node_modules/
+*.env
 
 # Editor directories and files
 front/.vscode/*

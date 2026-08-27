@@ -1,0 +1,11 @@
+{
+  "name": "fs-project-monorepo",
+  "private": true,
+  "workspaces": [
+    "back",
+    "front",
+    "admin-back",
+    "admin-front",
+    "packages/shared-models"
+  ]
+}
