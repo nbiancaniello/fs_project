@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import { Container, Row } from "react-bootstrap";
 import ProductCard from "./ProductCard";
 import './Products.css';
 import {api, imgLocation} from "../api/api";
@@ -40,7 +39,7 @@ function ProductByCategory() {
    if (error) {
       return <p>Error: {error}</p>;
    }
-   if (!products.length === 0) {
+   if (!products.length) {
       return <p>Loading...</p>;
    }
 
@@ -48,22 +47,20 @@ function ProductByCategory() {
       <>
          <h1 className="products-title">{category.charAt(0).toUpperCase() + category.slice(1)}</h1>
          <div className='products-list'>
-            <Container>
-               <Row>
-                  {products.map((product) => (
-                     <ProductCard
-                        key={product._id}
-                        _id={product._id}
-                        price={product.price}
-                        description={product.description}
-                        image={`${imgLocation}${product.image}`}
-                        className={"product-card-add-button"}
-                        promotionPrice={product.promotionPrice}
-                     />
-                  ))
-                  }
-               </Row>
-            </Container>
+            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+               {products.map((product) => (
+                  <ProductCard
+                     key={product._id}
+                     _id={product._id}
+                     price={product.price}
+                     description={product.description}
+                     image={`${imgLocation}${product.image}`}
+                     className={"product-card-add-button"}
+                     promotionPrice={product.promotionPrice}
+                  />
+               ))
+               }
+            </div>
          </div>
       </>
       

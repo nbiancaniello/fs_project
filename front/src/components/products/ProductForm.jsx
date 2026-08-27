@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
 import CartHandler from '../cart/CartHandler';
 import { useAuth } from '../api/AuthContext';
 
@@ -20,11 +19,11 @@ function ProductForm({id, price, description, image, className, promotionPrice})
    return (
       <>
          {isAuthenticated && (
-            <div className="product-card-form">
+            <div className="product-card-form mt-auto">
             {!visible && (
-               <Button variant="none" className={className} onClick={handleClickbAddRemoveButton}>
+               <button type="button" className={className} onClick={handleClickbAddRemoveButton}>
                   Agregar al carrito
-               </Button>
+               </button>
             )
             }
 

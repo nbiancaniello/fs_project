@@ -1,7 +1,3 @@
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
-import Alert from 'react-bootstrap/Alert'
 import './User.css';
 import { useEffect, useState } from 'react';
 import {api} from '../api/api';
@@ -110,61 +106,74 @@ function UserProfile() {
       <div className='user-profile'>
          {/* Display success/error alert */}
          {showAlert && (
-            <Alert variant={alertVariant} className="fade show" role="alert">
+            <div className={`fade show mb-4 rounded-2xl border px-4 py-3 text-sm font-medium ${alertVariant === 'success' ? 'border-emerald-200 bg-emerald-50 text-emerald-800' : 'border-red-200 bg-red-50 text-red-800'}`} role="alert">
                {alertMessage}
-            </Alert>
+            </div>
          )}
          <h1>Detalles de usuario</h1>
-         <Form id='user-details' noValidate validated={validated} onSubmit={handleFormSubmit}>
-            <Form.Group as={Col} controlId="validationCustom01">
-               <Form.Label>Nombre</Form.Label>
-               <Form.Control
+         <form id='user-details' noValidate data-validated={validated} onSubmit={handleFormSubmit} className="space-y-4 rounded-3xl border border-green-100 bg-white p-6 shadow-sm">
+            <div className="grid gap-4 md:grid-cols-2">
+               <div>
+                  <label className="mb-1 block text-sm font-semibold text-green-900">Nombre</label>
+                  <input
+                     type="text"
+                     placeholder="Nombre"
+                     value={firstName}
+                     onChange={(e) => setFirstName(e.target.value)}
+                     required
+                     className="w-full rounded-2xl border border-green-200 px-4 py-3 text-green-950 outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-100"
+                  />
+               </div>
+               <div>
+                  <label className="mb-1 block text-sm font-semibold text-green-900">Apellido</label>
+                  <input
+                     type="text"
+                     placeholder="Apellido"
+                     value={lastName}
+                     onChange={(e) => setLastName(e.target.value)}
+                     required
+                     className="w-full rounded-2xl border border-green-200 px-4 py-3 text-green-950 outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-100"
+                  />
+               </div>
+            </div>
+            <div>
+               <label className="mb-1 block text-sm font-semibold text-green-900">Email</label>
+               <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full rounded-2xl border border-green-200 px-4 py-3 text-green-950 outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-100"
+               />
+            </div>
+            <div>
+               <label className="mb-1 block text-sm font-semibold text-green-900">Teléfono</label>
+               <input
                   type="text"
-                  placeholder="Nombre"
-                  defaultValue={user.firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  placeholder="Teléfono"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   required
+                  className="w-full rounded-2xl border border-green-200 px-4 py-3 text-green-950 outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-100"
                />
-               <Form.Control.Feedback>Correcto!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} controlId="validationCustom02">
-               <Form.Label>Apellido</Form.Label>
-               <Form.Control
+            </div>
+            <div>
+               <label className="mb-1 block text-sm font-semibold text-green-900">Domicilio</label>
+               <input
                   type="text"
-                  placeholder="Apellido"
-                  defaultValue={user.lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  placeholder="Domicilio"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                   required
+                  className="w-full rounded-2xl border border-green-200 px-4 py-3 text-green-950 outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-100"
                />
-               <Form.Control.Feedback>Correcto!</Form.Control.Feedback>
-            </Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-               type="email"
-               placeholder="Email"
-               defaultValue={user.email}
-               onChange={(e) => setEmail(e.target.value)}
-                  required
-               />
-            <Form.Label>Teléfono</Form.Label>
-            <Form.Control
-               type="text"
-               placeholder="Teléfono"
-               defaultValue={user.phone}
-               onChange={(e) => setPhone(e.target.value)}
-                  required
-               />
-            <Form.Label>Domicilio</Form.Label>
-            <Form.Control
-               type="text"
-               placeholder="Domicilio"
-               defaultValue={user.address}
-               onChange={(e) => setAddress(e.target.value)}
-                  required
-            />
-            <Button type="submit">Guardar Cambios</Button>
-            <Button type="submit" onClick={handleLogout}>Cerrar Sesión</Button>
-         </Form>
+            </div>
+            <div className="flex flex-wrap gap-3 pt-2">
+               <button type="submit" className="inline-flex items-center rounded-full bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-green-800">Guardar Cambios</button>
+               <button type="button" onClick={handleLogout} className="inline-flex items-center rounded-full border border-green-200 bg-white px-6 py-3 text-sm font-semibold text-green-900 shadow-sm transition hover:border-green-300 hover:bg-green-50">Cerrar Sesión</button>
+            </div>
+         </form>
       </div>
    );
 }

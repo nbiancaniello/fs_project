@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Footer from './components/footer/Footer'
 import Navigation from './components/navigation/Navigation'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import FrontPage from './components/frontPage/FrontPage'
 import Orders from './components/orders/Orders';
 import UserProfile from './components/user/UserProfile'

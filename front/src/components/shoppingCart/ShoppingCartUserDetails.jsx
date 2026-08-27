@@ -1,5 +1,3 @@
-import Form from 'react-bootstrap/Form';
-import { Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { useCart } from '../cart/CartProvider';
 import { useNavigate } from 'react-router-dom';
@@ -122,65 +120,57 @@ function ShoppingCartUserDetails() {
    }
 
    return (
-      <Form id='shopping-cart-user-details' noValidate validated={validated} onSubmit={handleFormSubmit}>
-         <Form.Label>Nombre</Form.Label>
-         <Form.Control
-            type="text"
-            defaultValue={user.firstName}
-            disabled
-         />
-         <Form.Label>Apellido</Form.Label>
-         <Form.Control
-            type="text"
-            defaultValue={user.lastName}
-            disabled
-         />
-         <Form.Label>Email</Form.Label>
-         <Form.Control
-            type="email"
-            defaultValue={user.email}
-            disabled
-         />
-         <Form.Label>Teléfono</Form.Label>
-         <Form.Control
-            type="text"
-            defaultValue={user.phone}
-            disabled
-         />
-         <div key="option-delivery" className="mb-3">
-            <Form.Check 
-               inline
-               name="option"
-               type="radio"
-               id="option-delivery"
-               checked={selectedOption === 'option-delivery'}
-               label="Enviar a Domicilio"
-               onChange={handleOptionChange}
-            />
-            <Form.Check
-               inline
-               name="option"
-               type="radio"
-               id="option-pickup"
-               checked={selectedOption === 'option-pickup'}
-               label="Retiro en local"
-               onChange={handleOptionChange}
-            />
+      <form id='shopping-cart-user-details' noValidate data-validated={validated} onSubmit={handleFormSubmit} className="space-y-4 rounded-3xl border border-green-100 bg-white p-6 shadow-sm">
+         <div>
+            <label className="mb-1 block text-sm font-semibold text-green-900">Nombre</label>
+            <input type="text" defaultValue={user.firstName} disabled className="w-full rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-950" />
+         </div>
+         <div>
+            <label className="mb-1 block text-sm font-semibold text-green-900">Apellido</label>
+            <input type="text" defaultValue={user.lastName} disabled className="w-full rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-950" />
+         </div>
+         <div>
+            <label className="mb-1 block text-sm font-semibold text-green-900">Email</label>
+            <input type="email" defaultValue={user.email} disabled className="w-full rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-950" />
+         </div>
+         <div>
+            <label className="mb-1 block text-sm font-semibold text-green-900">Teléfono</label>
+            <input type="text" defaultValue={user.phone} disabled className="w-full rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-950" />
+         </div>
+         <div key="option-delivery" className="flex flex-col gap-3 rounded-2xl border border-green-100 bg-green-50 p-4 sm:flex-row">
+            <label className="inline-flex items-center gap-2 text-sm font-medium text-green-900">
+               <input
+                  name="option"
+                  type="radio"
+                  id="option-delivery"
+                  checked={selectedOption === 'option-delivery'}
+                  onChange={handleOptionChange}
+                  className="h-4 w-4 border-green-300 text-green-700"
+               />
+               Enviar a Domicilio
+            </label>
+            <label className="inline-flex items-center gap-2 text-sm font-medium text-green-900">
+               <input
+                  name="option"
+                  type="radio"
+                  id="option-pickup"
+                  checked={selectedOption === 'option-pickup'}
+                  onChange={handleOptionChange}
+                  className="h-4 w-4 border-green-300 text-green-700"
+               />
+               Retiro en local
+            </label>
          </div>
          
          {selectedOption === 'option-delivery' && (
-            <>
-               <Form.Label>Domicilio</Form.Label>
-               <Form.Control
-                  type="text"
-                  defaultValue={user.address}
-                  disabled
-               />   
-            </>
+            <div>
+               <label className="mb-1 block text-sm font-semibold text-green-900">Domicilio</label>
+               <input type="text" defaultValue={user.address} disabled className="w-full rounded-2xl border border-green-200 bg-green-50 px-4 py-3 text-green-950" />   
+            </div>
          )}
          
-         <Button id="shopping-cart-end-button" type="submit">Finalizar Compra</Button>
-      </Form>
+         <button id="shopping-cart-end-button" type="submit" className="inline-flex items-center rounded-full bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-green-800">Finalizar Compra</button>
+      </form>
    );
 } 
 

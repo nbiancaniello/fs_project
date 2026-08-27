@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import Form from 'react-bootstrap/Form';
-import { Button } from "react-bootstrap";
 import { useCart } from "./CartProvider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -51,26 +49,25 @@ function CartHandler({id, price, description, image, qty: initialQty, onQuantity
 
    return (
       <>      
-         <Form>
-            <div className="product-card-form-group">
-               <Form.Control
+         <div className="product-card-form-group flex items-center gap-3">
+               <input
                   type="number"
                   value={qty}
                   id="cart-qty"
                   min={1}
                   max={100}
                   onChange={handleQtyChange}
+                  className="w-20 rounded-xl border border-green-200 px-3 py-2 text-center text-sm font-semibold text-green-950 outline-none transition focus:border-green-400 focus:ring-2 focus:ring-green-100"
                />
-            <div className="product-card-form-buttons">
-               <Button className="btn btn-success cart-button" onClick={handleAddClick} >
+            <div className="product-card-form-buttons flex gap-2">
+               <button type="button" className="cart-button inline-flex h-11 w-11 items-center justify-center rounded-full bg-green-700 text-white shadow-sm transition hover:bg-green-800" onClick={handleAddClick}>
                   <FontAwesomeIcon size="lg" icon={faCheck} />
-               </Button>
-               <Button className="btn btn-danger cart-button" onClick={handleRemoveClick} >
+               </button>
+               <button type="button" className="cart-button inline-flex h-11 w-11 items-center justify-center rounded-full bg-red-600 text-white shadow-sm transition hover:bg-red-700" onClick={handleRemoveClick}>
                   <FontAwesomeIcon size="lg" icon={faTrash} />
-               </Button>
+               </button>
             </div>
-            </div>
-         </Form>
+         </div>
       </>
       
    );

@@ -1,6 +1,5 @@
 import './Products.css';
 import ProductCard from './ProductCard';
-import { Container, Row } from 'react-bootstrap';
 import { useEffect, useState, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -69,22 +68,20 @@ function ProductsList({ filter: propFilter }) {
       <>
          <h1 className="products-title">{getFilter() === "isNewArrival" ? "Nuevos Ingresos" : "Promociones"}</h1>
          <div className='products-list'>
-            <Container>
-               <Row xs={1} sm={2} md={2} lg={2} xl={3} xxl={3} className='g-4'>
-                  {loading ? <p>Cargando...</p> : products.map((product) => (
-                     <ProductCard
-                        key={product._id}
-                        _id={product._id}
-                        price={product.price}
-                        description={product.description}
-                        image={`${imgLocation}${product.image}`}
-                        className={"product-card-add-button"}
-                        promotionPrice={product.promotionPrice}
-                     />
-                  ))
-                  }
-               </Row>
-            </Container>
+            <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+               {loading ? <p>Cargando...</p> : products.map((product) => (
+                  <ProductCard
+                     key={product._id}
+                     _id={product._id}
+                     price={product.price}
+                     description={product.description}
+                     image={`${imgLocation}${product.image}`}
+                     className={"product-card-add-button"}
+                     promotionPrice={product.promotionPrice}
+                  />
+               ))
+               }
+            </div>
          </div>
       </>
       
