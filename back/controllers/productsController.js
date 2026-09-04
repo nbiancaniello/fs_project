@@ -4,13 +4,20 @@ const Product = require("../models/productModel");
 // Get all products
 const getAllProducts = async (req, res) => {
    try {
-      const allProducts = await Product.find();
-      res.json(allProducts);
+      const { filter } = req.query;
+      const query = {};
+
+      if (filter === 'isPromotion') query.isPromotion = true;
+      if (filter === 'isNewArrival') query.isNewArrival = true;
+
+      // Use .lean() to skip Mongoose document hydration overhead
+      const products = await Product.find(query).lean();
+      res.json(products);
    } catch (err) {
-      console.error("Error fetching products:", err);
       res.status(500).send("Error fetching products");
    }
 };
+
 
 const getProductById = async (req, res) => {
    try {
@@ -29,7 +36,7 @@ const getProductById = async (req, res) => {
 const getProductByCategory = async (req, res) => {
    const { category } = req.params;
    try {
-      const product = await Product.find({category});
+      const product = await Product.find({ category });
       if (!product) {
          return res.status(404).send("No products found in this category");
       }
